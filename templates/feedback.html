@@ -1,0 +1,178 @@
+{% extends "base.html" %}
+
+{% block title %}Send Feedback - ScholarMate{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h1 class="text-3xl font-bold mb-8 text-white">Send Feedback</h1>
+
+    <div class="bg-gray-800 rounded-lg shadow-lg p-6">
+        <form method="POST" action="{{ url_for('feedback') }}" class="space-y-6">
+            <!-- Feedback Type -->
+            <div>
+                <label for="feedback_type" class="block text-sm font-medium text-gray-300 mb-2">Feedback Type</label>
+                <select id="feedback_type" name="feedback_type" required class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="">Select a category</option>
+                    <option value="bug">Bug Report</option>
+                    <option value="feature">Feature Request</option>
+                    <option value="content">Content Feedback</option>
+                    <option value="tutor">Tutor Response Quality</option>
+                    <option value="ui">User Interface</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+
+            <!-- Subject -->
+            <div>
+                <label for="subject" class="block text-sm font-medium text-gray-300 mb-2">Subject</label>
+                <input type="text" id="subject" name="subject" required placeholder="Brief summary of your feedback" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+
+            <!-- Message -->
+            <div>
+                <label for="message" class="block text-sm font-medium text-gray-300 mb-2">Message</label>
+                <textarea id="message" name="message" rows="6" required placeholder="Please provide detailed feedback..." class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+            </div>
+
+            <!-- Priority -->
+            <div>
+                <label class="block text-sm font-medium text-gray-300 mb-2">Priority Level</label>
+                <div class="grid grid-cols-3 gap-4">
+                    <div class="relative">
+                        <input type="radio" name="priority" value="low" id="priority-low" class="hidden peer" required>
+                        <label for="priority-low" class="block text-center p-2 bg-gray-700 rounded-lg cursor-pointer transition-colors peer-checked:bg-green-900 peer-checked:ring-2 peer-checked:ring-green-400">
+                            <i class="fas fa-arrow-down text-green-400 mb-1"></i>
+                            <span class="block text-sm text-white">Low</span>
+                        </label>
+                    </div>
+                    <div class="relative">
+                        <input type="radio" name="priority" value="medium" id="priority-medium" class="hidden peer">
+                        <label for="priority-medium" class="block text-center p-2 bg-gray-700 rounded-lg cursor-pointer transition-colors peer-checked:bg-yellow-900 peer-checked:ring-2 peer-checked:ring-yellow-400">
+                            <i class="fas fa-minus text-yellow-400 mb-1"></i>
+                            <span class="block text-sm text-white">Medium</span>
+                        </label>
+                    </div>
+                    <div class="relative">
+                        <input type="radio" name="priority" value="high" id="priority-high" class="hidden peer">
+                        <label for="priority-high" class="block text-center p-2 bg-gray-700 rounded-lg cursor-pointer transition-colors peer-checked:bg-red-900 peer-checked:ring-2 peer-checked:ring-red-400">
+                            <i class="fas fa-arrow-up text-red-400 mb-1"></i>
+                            <span class="block text-sm text-white">High</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Attachments -->
+            <div>
+                <label class="block text-sm font-medium text-gray-300 mb-2">Attachments (Optional)</label>
+                <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-600 border-dashed rounded-lg">
+                    <div class="space-y-1 text-center">
+                        <i class="fas fa-cloud-upload-alt text-gray-400 text-3xl mb-3"></i>
+                        <div class="flex text-sm text-gray-400">
+                            <label for="file-upload" class="relative cursor-pointer bg-gray-700 rounded-md font-medium text-blue-400 hover:text-blue-300 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500">
+                                <span class="px-3 py-2">Upload files</span>
+                                <input id="file-upload" name="attachments" type="file" class="sr-only" multiple>
+                            </label>
+                            <p class="pl-1 pt-2">or drag and drop</p>
+                        </div>
+                        <p class="text-xs text-gray-400">
+                            PNG, JPG, PDF up to 10MB
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Preference -->
+            <div>
+                <label class="block text-sm font-medium text-gray-300 mb-2">Contact Preference</label>
+                <div class="space-y-2">
+                    <div class="flex items-center">
+                        <input type="checkbox" id="contact-email" name="contact_email" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-600 rounded bg-gray-700">
+                        <label for="contact-email" class="ml-2 text-sm text-gray-300">
+                            Email me about the resolution ({{ current_user.email }})
+                        </label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="checkbox" id="contact-urgent" name="contact_urgent" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-600 rounded bg-gray-700">
+                        <label for="contact-urgent" class="ml-2 text-sm text-gray-300">
+                            This requires urgent attention
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="flex justify-end">
+                <button type="submit" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                    <i class="fas fa-paper-plane mr-2"></i>
+                    Send Feedback
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+// File upload preview
+const fileUpload = document.getElementById('file-upload');
+const filePreview = document.querySelector('.text-center');
+
+fileUpload.addEventListener('change', function(e) {
+    const files = Array.from(e.target.files);
+    if (files.length > 0) {
+        const fileNames = files.map(file => file.name).join(', ');
+        const fileInfo = document.createElement('p');
+        fileInfo.className = 'text-sm text-gray-400 mt-2';
+        fileInfo.textContent = `Selected files: ${fileNames}`;
+        
+        // Remove previous file info if it exists
+        const previousFileInfo = filePreview.querySelector('p:last-child');
+        if (previousFileInfo && previousFileInfo.textContent.startsWith('Selected files:')) {
+            previousFileInfo.remove();
+        }
+        
+        filePreview.appendChild(fileInfo);
+    }
+});
+
+// Drag and drop functionality
+const dropZone = document.querySelector('.border-dashed');
+
+['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+    dropZone.addEventListener(eventName, preventDefaults, false);
+});
+
+function preventDefaults (e) {
+    e.preventDefault();
+    e.stopPropagation();
+}
+
+['dragenter', 'dragover'].forEach(eventName => {
+    dropZone.addEventListener(eventName, highlight, false);
+});
+
+['dragleave', 'drop'].forEach(eventName => {
+    dropZone.addEventListener(eventName, unhighlight, false);
+});
+
+function highlight(e) {
+    dropZone.classList.add('border-blue-400');
+}
+
+function unhighlight(e) {
+    dropZone.classList.remove('border-blue-400');
+}
+
+dropZone.addEventListener('drop', handleDrop, false);
+
+function handleDrop(e) {
+    const dt = e.dataTransfer;
+    const files = dt.files;
+    fileUpload.files = files;
+    
+    // Trigger change event to update preview
+    const event = new Event('change');
+    fileUpload.dispatchEvent(event);
+}
+</script>
+{% endblock %} 

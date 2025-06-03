@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block title %}Curriculum Selection - ScholarMate{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h1 class="text-3xl font-bold mb-8 text-white">Curriculum Selection</h1>
+
+    <div class="bg-gray-800 rounded-lg shadow-lg p-6">
+        <form method="POST" action="{{ url_for('curriculum') }}">
+            <div class="space-y-6">
+                <!-- Current Curriculum -->
+                <div class="mb-8">
+                    <h2 class="text-xl font-semibold text-white mb-4">Current Curriculum</h2>
+                    <div class="bg-gray-700 rounded-lg p-4">
+                        <p class="text-lg text-blue-400">{{ current_user.curriculum }}</p>
+                    </div>
+                </div>
+
+                <!-- Curriculum Options -->
+                <div>
+                    <h2 class="text-xl font-semibold text-white mb-4">Select Your Curriculum</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- General Curriculum -->
+                        <div class="relative">
+                            <input type="radio" name="curriculum" value="General" id="general" class="hidden peer" {% if current_user.curriculum == 'General' %}checked{% endif %}>
+                            <label for="general" class="block p-6 bg-gray-700 rounded-lg cursor-pointer transition-colors peer-checked:bg-blue-900 peer-checked:ring-2 peer-checked:ring-blue-400">
+                                <div class="flex items-center justify-between mb-2">
+                                    <h3 class="text-lg font-medium text-white">General</h3>
+                                    <i class="fas fa-globe text-blue-400"></i>
+                                </div>
+                                <p class="text-gray-300 text-sm">Standard curriculum covering core subjects with flexibility for personalized learning paths.</p>
+                            </label>
+                        </div>
+
+                        <!-- International Baccalaureate -->
+                        <div class="relative">
+                            <input type="radio" name="curriculum" value="IB" id="ib" class="hidden peer" {% if current_user.curriculum == 'IB' %}checked{% endif %}>
+                            <label for="ib" class="block p-6 bg-gray-700 rounded-lg cursor-pointer transition-colors peer-checked:bg-blue-900 peer-checked:ring-2 peer-checked:ring-blue-400">
+                                <div class="flex items-center justify-between mb-2">
+                                    <h3 class="text-lg font-medium text-white">IB</h3>
+                                    <i class="fas fa-award text-blue-400"></i>
+                                </div>
+                                <p class="text-gray-300 text-sm">International Baccalaureate program focusing on critical thinking and global perspective.</p>
+                            </label>
+                        </div>
+
+                        <!-- Advanced Placement -->
+                        <div class="relative">
+                            <input type="radio" name="curriculum" value="AP" id="ap" class="hidden peer" {% if current_user.curriculum == 'AP' %}checked{% endif %}>
+                            <label for="ap" class="block p-6 bg-gray-700 rounded-lg cursor-pointer transition-colors peer-checked:bg-blue-900 peer-checked:ring-2 peer-checked:ring-blue-400">
+                                <div class="flex items-center justify-between mb-2">
+                                    <h3 class="text-lg font-medium text-white">AP</h3>
+                                    <i class="fas fa-graduation-cap text-blue-400"></i>
+                                </div>
+                                <p class="text-gray-300 text-sm">Advanced Placement curriculum for college-level academic preparation.</p>
+                            </label>
+                        </div>
+
+                        <!-- Cambridge -->
+                        <div class="relative">
+                            <input type="radio" name="curriculum" value="Cambridge" id="cambridge" class="hidden peer" {% if current_user.curriculum == 'Cambridge' %}checked{% endif %}>
+                            <label for="cambridge" class="block p-6 bg-gray-700 rounded-lg cursor-pointer transition-colors peer-checked:bg-blue-900 peer-checked:ring-2 peer-checked:ring-blue-400">
+                                <div class="flex items-center justify-between mb-2">
+                                    <h3 class="text-lg font-medium text-white">Cambridge</h3>
+                                    <i class="fas fa-university text-blue-400"></i>
+                                </div>
+                                <p class="text-gray-300 text-sm">Cambridge International curriculum emphasizing academic rigor and practical skills.</p>
+                            </label>
+                        </div>
+
+                        <!-- Common Core -->
+                        <div class="relative">
+                            <input type="radio" name="curriculum" value="Common Core" id="common-core" class="hidden peer" {% if current_user.curriculum == 'Common Core' %}checked{% endif %}>
+                            <label for="common-core" class="block p-6 bg-gray-700 rounded-lg cursor-pointer transition-colors peer-checked:bg-blue-900 peer-checked:ring-2 peer-checked:ring-blue-400">
+                                <div class="flex items-center justify-between mb-2">
+                                    <h3 class="text-lg font-medium text-white">Common Core</h3>
+                                    <i class="fas fa-book text-blue-400"></i>
+                                </div>
+                                <p class="text-gray-300 text-sm">US Common Core State Standards focusing on essential academic skills.</p>
+                            </label>
+                        </div>
+
+                        <!-- Professional -->
+                        <div class="relative">
+                            <input type="radio" name="curriculum" value="Professional" id="professional" class="hidden peer" {% if current_user.curriculum == 'Professional' %}checked{% endif %}>
+                            <label for="professional" class="block p-6 bg-gray-700 rounded-lg cursor-pointer transition-colors peer-checked:bg-blue-900 peer-checked:ring-2 peer-checked:ring-blue-400">
+                                <div class="flex items-center justify-between mb-2">
+                                    <h3 class="text-lg font-medium text-white">Professional</h3>
+                                    <i class="fas fa-briefcase text-blue-400"></i>
+                                </div>
+                                <p class="text-gray-300 text-sm">Career-focused curriculum tailored for professional development and industry skills.</p>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="flex justify-end mt-8">
+                    <button type="submit" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                        Update Curriculum
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %} 

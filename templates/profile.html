@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block title %}Your Profile - Sapiens Tutor{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Profile Information -->
+        <div class="col-span-2">
+            <div class="bg-gray-800 shadow rounded-lg p-6">
+                <div class="flex items-center space-x-4 mb-6">
+                    <div class="h-20 w-20 rounded-full bg-gray-700 flex items-center justify-center">
+                        <i class="fas fa-user text-4xl text-gray-300"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold text-white">{{ current_user.username }}</h1>
+                        <p class="text-gray-400">{{ current_user.email }}</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-gray-700 rounded-lg p-4">
+                        <h3 class="text-lg font-medium text-white mb-2">Current Curriculum</h3>
+                        <p class="text-gray-300">{{ current_user.curriculum }}</p>
+                    </div>
+                    <div class="bg-gray-700 rounded-lg p-4">
+                        <h3 class="text-lg font-medium text-white mb-2">Grade Level</h3>
+                        <p class="text-gray-300">{{ current_user.grade_level }}</p>
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <a href="{{ url_for('settings') }}" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        <i class="fas fa-cog mr-2"></i>
+                        Edit Profile Settings
+                    </a>
+                </div>
+            </div>
+
+            <!-- Learning Progress -->
+            <div class="mt-6 bg-gray-800 shadow rounded-lg p-6">
+                <h2 class="text-xl font-bold text-white mb-4">Learning Progress</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    {% for subject_key, subject_data in subjects.items() %}
+                    <div class="bg-gray-700 rounded-lg p-4">
+                        <h4 class="font-medium text-white mb-2">{{ subject_key|title }}</h4>
+                        {% set subject_sessions = sessions|selectattr('subject', 'equalto', subject_key)|list %}
+                        <p class="text-2xl font-bold text-blue-400">{{ subject_sessions|length }}</p>
+                        <p class="text-sm text-gray-400">Sessions completed</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="col-span-1">
+            <div class="bg-gray-800 shadow rounded-lg p-6">
+                <h2 class="text-xl font-bold text-white mb-4">Recent Activity</h2>
+                <div class="space-y-4">
+                    {% for session in sessions[:5] %}
+                    <div class="border-l-4 border-blue-500 pl-4 py-2">
+                        <p class="text-sm text-gray-400">{{ session.timestamp.strftime('%B %d, %Y') }}</p>
+                        <p class="text-white font-medium">{{ session.subject|title }} - {{ session.topic }}</p>
+                        <p class="text-gray-400 text-sm truncate">{{ session.question }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="mt-4">
+                    <a href="{{ url_for('history') }}" class="text-blue-400 hover:text-blue-300 text-sm flex items-center">
+                        View all activity
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="mt-6 bg-gray-800 shadow rounded-lg p-6">
+                <h2 class="text-xl font-bold text-white mb-4">Quick Stats</h2>
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-400">Total Sessions</span>
+                        <span class="text-white font-bold">{{ sessions|length }}</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-400">Favorite Subject</span>
+                        {% set favorite = {'subject': None, 'count': 0} %}
+                        {% for subject in subjects %}
+                            {% set count = sessions|selectattr('subject', 'equalto', subject)|list|length %}
+                            {% if count > favorite.count %}
+                                {% set _ = favorite.update({'subject': subject, 'count': count}) %}
+                            {% endif %}
+                        {% endfor %}
+                        <span class="text-white font-bold">{{ favorite.subject|title if favorite.subject else 'N/A' }}</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-400">Last Active</span>
+                        <span class="text-white font-bold">
+                            {% if sessions %}
+                                {{ sessions[0].timestamp.strftime('%B %d, %Y') }}
+                            {% else %}
+                                Never
+                            {% endif %}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

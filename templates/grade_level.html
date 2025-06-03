@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+
+{% block title %}Grade Level Selection - ScholarMate{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h1 class="text-3xl font-bold mb-8 text-white">Grade Level Selection</h1>
+
+    <div class="bg-gray-800 rounded-lg shadow-lg p-6">
+        <form method="POST" action="{{ url_for('grade_level') }}">
+            <div class="space-y-6">
+                <!-- Current Grade Level -->
+                <div class="mb-8">
+                    <h2 class="text-xl font-semibold text-white mb-4">Current Grade Level</h2>
+                    <div class="bg-gray-700 rounded-lg p-4">
+                        <p class="text-lg text-blue-400">{{ current_user.grade_level }}</p>
+                    </div>
+                </div>
+
+                <!-- Grade Level Options -->
+                <div>
+                    <h2 class="text-xl font-semibold text-white mb-4">Select Your Grade Level</h2>
+                    <div class="grid grid-cols-1 gap-6">
+                        <!-- Early Education -->
+                        <div class="bg-gray-700 rounded-lg p-6">
+                            <h3 class="text-lg font-medium text-white mb-4">Early Education</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div class="relative">
+                                    <input type="radio" name="grade_level" value="Pre-School" id="pre-school" class="hidden peer" {% if current_user.grade_level == 'Pre-School' %}checked{% endif %}>
+                                    <label for="pre-school" class="block p-4 bg-gray-600 rounded-lg cursor-pointer transition-colors peer-checked:bg-blue-900 peer-checked:ring-2 peer-checked:ring-blue-400">
+                                        <span class="text-white">Pre-School</span>
+                                    </label>
+                                </div>
+                                <div class="relative">
+                                    <input type="radio" name="grade_level" value="Kindergarten" id="kindergarten" class="hidden peer" {% if current_user.grade_level == 'Kindergarten' %}checked{% endif %}>
+                                    <label for="kindergarten" class="block p-4 bg-gray-600 rounded-lg cursor-pointer transition-colors peer-checked:bg-blue-900 peer-checked:ring-2 peer-checked:ring-blue-400">
+                                        <span class="text-white">Kindergarten</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Elementary School -->
+                        <div class="bg-gray-700 rounded-lg p-6">
+                            <h3 class="text-lg font-medium text-white mb-4">Elementary School</h3>
+                            <div class="grid grid-cols-2 sm:grid-cols-5 gap-4">
+                                {% for grade in range(1, 6) %}
+                                <div class="relative">
+                                    <input type="radio" name="grade_level" value="Grade {{ grade }}" id="grade-{{ grade }}" class="hidden peer" {% if current_user.grade_level == 'Grade ' ~ grade %}checked{% endif %}>
+                                    <label for="grade-{{ grade }}" class="block p-4 bg-gray-600 rounded-lg cursor-pointer transition-colors peer-checked:bg-blue-900 peer-checked:ring-2 peer-checked:ring-blue-400">
+                                        <span class="text-white">Grade {{ grade }}</span>
+                                    </label>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <!-- Middle School -->
+                        <div class="bg-gray-700 rounded-lg p-6">
+                            <h3 class="text-lg font-medium text-white mb-4">Middle School</h3>
+                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                                {% for grade in range(6, 9) %}
+                                <div class="relative">
+                                    <input type="radio" name="grade_level" value="Grade {{ grade }}" id="grade-{{ grade }}" class="hidden peer" {% if current_user.grade_level == 'Grade ' ~ grade %}checked{% endif %}>
+                                    <label for="grade-{{ grade }}" class="block p-4 bg-gray-600 rounded-lg cursor-pointer transition-colors peer-checked:bg-blue-900 peer-checked:ring-2 peer-checked:ring-blue-400">
+                                        <span class="text-white">Grade {{ grade }}</span>
+                                    </label>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <!-- High School -->
+                        <div class="bg-gray-700 rounded-lg p-6">
+                            <h3 class="text-lg font-medium text-white mb-4">High School</h3>
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                                {% for grade in range(9, 13) %}
+                                <div class="relative">
+                                    <input type="radio" name="grade_level" value="Grade {{ grade }}" id="grade-{{ grade }}" class="hidden peer" {% if current_user.grade_level == 'Grade ' ~ grade %}checked{% endif %}>
+                                    <label for="grade-{{ grade }}" class="block p-4 bg-gray-600 rounded-lg cursor-pointer transition-colors peer-checked:bg-blue-900 peer-checked:ring-2 peer-checked:ring-blue-400">
+                                        <span class="text-white">Grade {{ grade }}</span>
+                                    </label>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <!-- Higher Education -->
+                        <div class="bg-gray-700 rounded-lg p-6">
+                            <h3 class="text-lg font-medium text-white mb-4">Higher Education</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                                {% for level in ['Undergraduate', 'Masters', 'PhD', 'Post-Doctoral'] %}
+                                <div class="relative">
+                                    <input type="radio" name="grade_level" value="{{ level }}" id="{{ level|lower }}" class="hidden peer" {% if current_user.grade_level == level %}checked{% endif %}>
+                                    <label for="{{ level|lower }}" class="block p-4 bg-gray-600 rounded-lg cursor-pointer transition-colors peer-checked:bg-blue-900 peer-checked:ring-2 peer-checked:ring-blue-400">
+                                        <span class="text-white">{{ level }}</span>
+                                    </label>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <!-- Other -->
+                        <div class="bg-gray-700 rounded-lg p-6">
+                            <h3 class="text-lg font-medium text-white mb-4">Other</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                {% for level in ['Professional', 'Self-Learning'] %}
+                                <div class="relative">
+                                    <input type="radio" name="grade_level" value="{{ level }}" id="{{ level|lower }}" class="hidden peer" {% if current_user.grade_level == level %}checked{% endif %}>
+                                    <label for="{{ level|lower }}" class="block p-4 bg-gray-600 rounded-lg cursor-pointer transition-colors peer-checked:bg-blue-900 peer-checked:ring-2 peer-checked:ring-blue-400">
+                                        <span class="text-white">{{ level }}</span>
+                                    </label>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="flex justify-end mt-8">
+                    <button type="submit" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                        Update Grade Level
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %} 

@@ -1,0 +1,78 @@
+/* Dark mode styles */
+[data-theme="dark"] {
+    --bg-primary: #1a202c;
+    --text-primary: #f7fafc;
+    --bg-secondary: #2d3748;
+    --text-secondary: #e2e8f0;
+}
+
+/* Light mode styles */
+[data-theme="light"] {
+    --bg-primary: #f7fafc;
+    --text-primary: #1a202c;
+    --bg-secondary: #edf2f7;
+    --text-secondary: #4a5568;
+}
+
+/* Base styles */
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+/* Prose styles for markdown content */
+.prose {
+    max-width: 65ch;
+    color: var(--text-primary);
+}
+
+.prose h1, .prose h2, .prose h3, .prose h4 {
+    color: var(--text-primary);
+    margin-top: 2em;
+    margin-bottom: 1em;
+    font-weight: 600;
+}
+
+.prose p {
+    margin-bottom: 1.5em;
+    line-height: 1.75;
+}
+
+.prose ul, .prose ol {
+    margin-left: 2em;
+    margin-bottom: 1.5em;
+}
+
+.prose li {
+    margin-bottom: 0.5em;
+}
+
+.prose code {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    padding: 0.2em 0.4em;
+    border-radius: 0.25em;
+    font-size: 0.875em;
+}
+
+.prose pre {
+    background-color: var(--bg-secondary);
+    padding: 1em;
+    border-radius: 0.5em;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+/* Form styles */
+input, select, textarea {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border-color: var(--text-secondary);
+}
+
+/* Transitions */
+.transition-colors {
+    transition-property: background-color, border-color, color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+} 

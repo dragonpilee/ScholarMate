@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+
+{% block title %}Settings - Sapiens Tutor{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h1 class="text-3xl font-bold mb-8 text-white">Account Settings</h1>
+
+    <!-- Profile Settings -->
+    <div class="bg-gray-800 shadow rounded-lg p-6 mb-6">
+        <h2 class="text-xl font-bold text-white mb-4">Profile Information</h2>
+        <form method="POST" class="space-y-6">
+            <div>
+                <label for="email" class="block text-sm font-medium text-gray-300">Email Address</label>
+                <input type="email" name="email" id="email" value="{{ current_user.email }}" class="mt-1 block w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+
+            <div>
+                <label for="curriculum" class="block text-sm font-medium text-gray-300">Curriculum</label>
+                <select name="curriculum" id="curriculum" class="mt-1 block w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="General" {% if current_user.curriculum == 'General' %}selected{% endif %}>General</option>
+                    <option value="IB" {% if current_user.curriculum == 'IB' %}selected{% endif %}>International Baccalaureate</option>
+                    <option value="AP" {% if current_user.curriculum == 'AP' %}selected{% endif %}>Advanced Placement</option>
+                    <option value="GCSE" {% if current_user.curriculum == 'GCSE' %}selected{% endif %}>GCSE</option>
+                    <option value="A-Level" {% if current_user.curriculum == 'A-Level' %}selected{% endif %}>A-Level</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="grade_level" class="block text-sm font-medium text-gray-300">Grade Level</label>
+                <select name="grade_level" id="grade_level" class="mt-1 block w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <optgroup label="Early Education">
+                        <option value="Kindergarten" {% if current_user.grade_level == 'Kindergarten' %}selected{% endif %}>Kindergarten</option>
+                        <option value="Pre-School" {% if current_user.grade_level == 'Pre-School' %}selected{% endif %}>Pre-School</option>
+                    </optgroup>
+                    <optgroup label="Elementary School">
+                        {% for grade in range(1, 6) %}
+                        <option value="Grade {{ grade }}" {% if current_user.grade_level == 'Grade ' ~ grade %}selected{% endif %}>Grade {{ grade }}</option>
+                        {% endfor %}
+                    </optgroup>
+                    <optgroup label="Middle School">
+                        {% for grade in range(6, 9) %}
+                        <option value="Grade {{ grade }}" {% if current_user.grade_level == 'Grade ' ~ grade %}selected{% endif %}>Grade {{ grade }}</option>
+                        {% endfor %}
+                    </optgroup>
+                    <optgroup label="High School">
+                        {% for grade in range(9, 13) %}
+                        <option value="Grade {{ grade }}" {% if current_user.grade_level == 'Grade ' ~ grade %}selected{% endif %}>Grade {{ grade }}</option>
+                        {% endfor %}
+                    </optgroup>
+                    <optgroup label="Higher Education">
+                        <option value="Undergraduate" {% if current_user.grade_level == 'Undergraduate' %}selected{% endif %}>Undergraduate</option>
+                        <option value="Masters" {% if current_user.grade_level == 'Masters' %}selected{% endif %}>Masters</option>
+                        <option value="PhD" {% if current_user.grade_level == 'PhD' %}selected{% endif %}>PhD</option>
+                        <option value="Post-Doctoral" {% if current_user.grade_level == 'Post-Doctoral' %}selected{% endif %}>Post-Doctoral</option>
+                    </optgroup>
+                    <optgroup label="Other">
+                        <option value="Professional" {% if current_user.grade_level == 'Professional' %}selected{% endif %}>Professional</option>
+                        <option value="Self-Learning" {% if current_user.grade_level == 'Self-Learning' %}selected{% endif %}>Self-Learning</option>
+                    </optgroup>
+                </select>
+            </div>
+
+            <div class="flex justify-end">
+                <button type="submit" class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    Save Changes
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Password Change -->
+    <div class="bg-gray-800 shadow rounded-lg p-6 mb-6">
+        <h2 class="text-xl font-bold text-white mb-4">Change Password</h2>
+        <form method="POST" class="space-y-6">
+            <div>
+                <label for="current_password" class="block text-sm font-medium text-gray-300">Current Password</label>
+                <input type="password" name="current_password" id="current_password" class="mt-1 block w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+
+            <div>
+                <label for="new_password" class="block text-sm font-medium text-gray-300">New Password</label>
+                <input type="password" name="new_password" id="new_password" class="mt-1 block w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+
+            <div>
+                <label for="confirm_password" class="block text-sm font-medium text-gray-300">Confirm New Password</label>
+                <input type="password" name="confirm_password" id="confirm_password" class="mt-1 block w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+
+            <div class="flex justify-end">
+                <button type="submit" class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    Update Password
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Danger Zone -->
+    <div class="bg-gray-800 shadow rounded-lg p-6">
+        <h2 class="text-xl font-bold text-red-500 mb-4">Danger Zone</h2>
+        <div class="space-y-4">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h3 class="text-white font-medium">Delete Account</h3>
+                    <p class="text-gray-400 text-sm">Permanently delete your account and all associated data</p>
+                </div>
+                <button onclick="confirmDelete()" class="px-4 py-2 border border-red-500 text-red-500 rounded-md hover:bg-red-500 hover:text-white transition-colors">
+                    Delete Account
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function confirmDelete() {
+    if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
+        // Here you would typically submit a form or make an API call to delete the account
+        window.location.href = "{{ url_for('delete_account') }}";
+    }
+}
+</script>
+{% endblock %} 

@@ -1,0 +1,192 @@
+{% extends "base.html" %}
+
+{% block title %}Sapiens Tutor - Your Personal AI Learning Companion{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+    <h1 class="text-3xl font-bold mb-8 text-white">
+        {% if subject %}{{ subject|title }} Tutor{% else %}Sapiens Tutor{% endif %}
+    </h1>
+    
+    <form method="POST" action="{{ url_for('tutor') }}" class="bg-gray-800 shadow-lg rounded-lg p-6 mb-8">
+        {% if not subject %}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div>
+                <label for="subject" class="block text-gray-200 font-medium mb-2">Select Subject</label>
+                <select name="subject" id="subject" class="w-full px-4 py-2 border rounded-lg bg-gray-700 border-gray-600 text-gray-200" required onchange="updateTopics()">
+                    <option value="">Select a subject...</option>
+                    {% for subject_key, subject_data in subjects.items() %}
+                    <option value="{{ subject_key }}" {% if subject == subject_key %}selected{% endif %}>
+                        {{ subject_key|title }}
+                    </option>
+                    {% endfor %}
+                </select>
+                <p class="text-sm text-gray-400 mt-1" id="subject-description"></p>
+            </div>
+            
+            <div>
+                <label for="topic" class="block text-gray-200 font-medium mb-2">Select Topic</label>
+                <select name="topic" id="topic" class="w-full px-4 py-2 border rounded-lg bg-gray-700 border-gray-600 text-gray-200" required>
+                    <option value="">Select a topic...</option>
+                </select>
+            </div>
+        </div>
+        {% else %}
+        <input type="hidden" name="subject" value="{{ subject }}">
+        <div class="mb-6">
+            <label for="topic" class="block text-gray-200 font-medium mb-2">Select Topic in {{ subject|title }}</label>
+            <select name="topic" id="topic" class="w-full px-4 py-2 border rounded-lg bg-gray-700 border-gray-600 text-gray-200" required>
+                <option value="">Select a topic...</option>
+                {% if topics %}
+                    {% for topic_name in topics %}
+                    <option value="{{ topic_name }}" {% if topic == topic_name %}selected{% endif %}>
+                        {{ topic_name }}
+                    </option>
+                    {% endfor %}
+                {% endif %}
+            </select>
+            {% if subjects[subject] %}
+            <p class="text-sm text-gray-400 mt-1">{{ subjects[subject].description }}</p>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        <div class="mb-6">
+            <label for="question" class="block text-gray-200 font-medium mb-2">Your Question</label>
+            <textarea 
+                name="question" 
+                id="question" 
+                rows="4" 
+                class="w-full px-4 py-2 border rounded-lg bg-gray-700 border-gray-600 text-gray-200" 
+                placeholder="Type your question here. Be as specific as possible for the best response."
+                required>{{ question if question else '' }}</textarea>
+        </div>
+
+        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg transition-colors font-medium">
+            Get Expert Help
+        </button>
+    </form>
+
+    {% if response %}
+    <div class="bg-gray-800 shadow-lg rounded-lg p-6">
+        <div class="flex items-center justify-between mb-6">
+            <h2 class="text-xl font-bold text-white">
+                {% if topic %}{{ topic }} - {% endif %}{{ subject|title if subject else 'Response' }}
+            </h2>
+            <span class="px-3 py-1 bg-blue-900 text-blue-200 rounded-full text-sm">
+                {{ current_user.grade_level }}
+            </span>
+        </div>
+        <div class="prose prose-invert max-w-none">
+            {{ response | safe }}
+        </div>
+        <div class="mt-6 flex justify-end space-x-4">
+            <button onclick="copyToClipboard()" class="text-blue-400 hover:text-blue-300">
+                <svg class="w-5 h-5 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path>
+                </svg>
+                Copy Response
+            </button>
+            <button onclick="window.print()" class="text-blue-400 hover:text-blue-300">
+                <svg class="w-5 h-5 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
+                </svg>
+                Print
+            </button>
+        </div>
+    </div>
+    {% else %}
+    <div class="mt-8 bg-gray-800 rounded-lg p-6">
+        {% if not subject %}
+        <div class="max-w-2xl mx-auto text-center">
+            <h3 class="text-xl font-medium text-blue-200 mb-4">Welcome to Sapiens Tutor!</h3>
+            <p class="text-blue-300 mb-6">Your personal AI learning companion for:</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                {% for subject_key, subject_data in subjects.items() %}
+                <a href="{{ url_for('tutor', subject=subject_key) }}" class="block">
+                    <div class="p-4 bg-gray-700 rounded-lg shadow hover:bg-gray-600 transition-colors">
+                        <h4 class="font-medium text-white mb-2">{{ subject_key|title }}</h4>
+                        <p class="text-sm text-gray-300">{{ subject_data.description }}</p>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+        {% else %}
+        <div class="text-center">
+            <h3 class="text-xl font-medium text-blue-200 mb-4">{{ subject|title }} Topics</h3>
+            <p class="text-blue-300 mb-6">Select a topic above to start learning</p>
+        </div>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+
+<script>
+const subjects = {{ subjects|tojson|safe }};
+
+function updateTopics() {
+    const subjectSelect = document.getElementById('subject');
+    const topicSelect = document.getElementById('topic');
+    const descriptionP = document.getElementById('subject-description');
+    
+    // Clear existing options
+    topicSelect.innerHTML = '<option value="">Select a topic...</option>';
+    
+    const selectedSubject = subjectSelect.value;
+    if (selectedSubject && subjects[selectedSubject]) {
+        // Add new topic options
+        subjects[selectedSubject].topics.forEach(topic => {
+            const option = document.createElement('option');
+            option.value = topic;
+            option.textContent = topic;
+            if ('{{ topic }}' === topic) {
+                option.selected = true;
+            }
+            topicSelect.appendChild(option);
+        });
+        
+        // Update description
+        descriptionP.textContent = subjects[selectedSubject].description;
+        
+        // Update URL without reloading the page
+        const newUrl = '{{ url_for("tutor") }}/' + selectedSubject;
+        window.history.pushState({}, '', newUrl);
+        
+        // Update the page title
+        document.querySelector('h1').textContent = selectedSubject.charAt(0).toUpperCase() + selectedSubject.slice(1) + ' Tutor';
+    } else {
+        descriptionP.textContent = '';
+        window.history.pushState({}, '', '{{ url_for("tutor") }}');
+        document.querySelector('h1').textContent = 'Sapiens Tutor';
+    }
+}
+
+function copyToClipboard() {
+    const responseDiv = document.querySelector('.prose');
+    const textArea = document.createElement('textarea');
+    textArea.value = responseDiv.textContent;
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textArea);
+    
+    // Show feedback
+    const button = event.target.closest('button');
+    const originalText = button.innerHTML;
+    button.innerHTML = '<svg class="w-5 h-5 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Copied!';
+    setTimeout(() => {
+        button.innerHTML = originalText;
+    }, 2000);
+}
+
+// Initialize topics on page load
+document.addEventListener('DOMContentLoaded', function() {
+    {% if subject %}
+    // If subject is pre-selected, no need to call updateTopics
+    {% else %}
+    updateTopics();
+    {% endif %}
+});
+</script>
+{% endblock %} 

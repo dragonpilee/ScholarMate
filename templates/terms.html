@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+
+{% block title %}Terms of Service - ScholarMate{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h1 class="text-3xl font-bold mb-8 text-white">Terms of Service</h1>
+
+    <div class="space-y-8">
+        <!-- Introduction -->
+        <div class="bg-gray-800 rounded-lg shadow-lg p-6">
+            <h2 class="text-xl font-semibold text-white mb-4">Introduction</h2>
+            <p class="text-gray-300">
+                Welcome to Sapiens Tutor. By accessing our service, you agree to be bound by these Terms of Service 
+                ("Terms"). Please read them carefully before using our platform. If you do not agree to all the terms 
+                and conditions, you must not use our service.
+            </p>
+        </div>
+
+        <!-- Acceptance of Terms -->
+        <div class="bg-gray-800 rounded-lg shadow-lg p-6">
+            <h2 class="text-xl font-semibold text-white mb-4">Acceptance of Terms</h2>
+            <div class="space-y-4">
+                <p class="text-gray-300">
+                    By creating an account or using any part of our service, you acknowledge that:
+                </p>
+                <ul class="list-disc list-inside text-gray-300 space-y-2">
+                    <li>You have read and understood these Terms</li>
+                    <li>You agree to be bound by these Terms</li>
+                    <li>You are legally capable of entering into a binding contract</li>
+                    <li>You are at least 13 years of age</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- User Accounts -->
+        <div class="bg-gray-800 rounded-lg shadow-lg p-6">
+            <h2 class="text-xl font-semibold text-white mb-4">User Accounts</h2>
+            <div class="space-y-4">
+                <div>
+                    <h3 class="text-lg font-medium text-blue-400 mb-2">Account Creation</h3>
+                    <p class="text-gray-300">
+                        To use our service, you must create an account with accurate and complete information. 
+                        You are responsible for maintaining the security of your account credentials.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-medium text-blue-400 mb-2">Account Responsibilities</h3>
+                    <ul class="list-disc list-inside text-gray-300 space-y-2">
+                        <li>Maintain accurate account information</li>
+                        <li>Protect your password and access credentials</li>
+                        <li>Notify us of any unauthorized access</li>
+                        <li>One account per user</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Service Usage -->
+        <div class="bg-gray-800 rounded-lg shadow-lg p-6">
+            <h2 class="text-xl font-semibold text-white mb-4">Service Usage</h2>
+            <div class="space-y-4">
+                <div>
+                    <h3 class="text-lg font-medium text-blue-400 mb-2">Acceptable Use</h3>
+                    <p class="text-gray-300">You agree to use our service only for:</p>
+                    <ul class="list-disc list-inside text-gray-300 space-y-2">
+                        <li>Educational purposes</li>
+                        <li>Personal learning and development</li>
+                        <li>Legitimate academic assistance</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-medium text-blue-400 mb-2">Prohibited Activities</h3>
+                    <ul class="list-disc list-inside text-gray-300 space-y-2">
+                        <li>Cheating or academic dishonesty</li>
+                        <li>Sharing account access</li>
+                        <li>Automated access or scraping</li>
+                        <li>Harmful or malicious activities</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Intellectual Property -->
+        <div class="bg-gray-800 rounded-lg shadow-lg p-6">
+            <h2 class="text-xl font-semibold text-white mb-4">Intellectual Property</h2>
+            <div class="space-y-4">
+                <p class="text-gray-300">
+                    All content and materials available on Sapiens Tutor, including but not limited to text, 
+                    graphics, website name, code, images and logos are the intellectual property of Sapiens 
+                    Tutor and are protected by applicable copyright and trademark law.
+                </p>
+                <div class="bg-gray-700 rounded-lg p-4">
+                    <h3 class="text-lg font-medium text-white mb-2">Usage Rights</h3>
+                    <ul class="list-disc list-inside text-gray-300 space-y-1">
+                        <li>Personal, non-commercial use only</li>
+                        <li>No reproduction without permission</li>
+                        <li>No distribution or modification</li>
+                        <li>No reverse engineering</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Limitation of Liability -->
+        <div class="bg-gray-800 rounded-lg shadow-lg p-6">
+            <h2 class="text-xl font-semibold text-white mb-4">Limitation of Liability</h2>
+            <p class="text-gray-300">
+                Sapiens Tutor and its affiliates shall not be liable for any indirect, incidental, special, 
+                consequential, or punitive damages, or any loss of profits or revenues, whether incurred 
+                directly or indirectly, or any loss of data, use, goodwill, or other intangible losses.
+            </p>
+        </div>
+
+        <!-- Changes to Terms -->
+        <div class="bg-gray-800 rounded-lg shadow-lg p-6">
+            <h2 class="text-xl font-semibold text-white mb-4">Changes to Terms</h2>
+            <p class="text-gray-300">
+                We reserve the right to modify these terms at any time. We will notify users of any material 
+                changes via email or through our platform. Your continued use of our service after such 
+                modifications constitutes your acceptance of the updated terms.
+            </p>
+        </div>
+
+        <!-- Contact Information -->
+        <div class="bg-gray-800 rounded-lg shadow-lg p-6">
+            <h2 class="text-xl font-semibold text-white mb-4">Contact Information</h2>
+            <p class="text-gray-300 mb-4">
+                For any questions about these Terms of Service, please contact us:
+            </p>
+            <div class="flex space-x-4">
+                <a href="{{ url_for('contact') }}" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                    <i class="fas fa-envelope mr-2"></i>
+                    Contact Form
+                </a>
+                <a href="mailto:legal@sapienstutor.com" class="inline-flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors">
+                    <i class="fas fa-gavel mr-2"></i>
+                    Legal Team
+                </a>
+            </div>
+        </div>
+
+        <!-- Last Updated -->
+        <div class="text-center text-gray-400 text-sm">
+            Last updated: March 2024
+        </div>
+    </div>
+</div>
+{% endblock %} 

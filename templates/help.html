@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block title %}Help & Support - ScholarMate{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h1 class="text-3xl font-bold mb-8 text-white">Help & Support Center</h1>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Quick Links -->
+        <div class="lg:col-span-1">
+            <div class="bg-gray-800 rounded-lg shadow-lg p-6">
+                <h2 class="text-xl font-semibold text-white mb-4">Quick Links</h2>
+                <nav class="space-y-2">
+                    <a href="#getting-started" class="block px-4 py-2 rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">
+                        Getting Started
+                    </a>
+                    <a href="#using-tutor" class="block px-4 py-2 rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">
+                        Using the Tutor
+                    </a>
+                    <a href="#account-settings" class="block px-4 py-2 rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">
+                        Account Settings
+                    </a>
+                    <a href="#troubleshooting" class="block px-4 py-2 rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">
+                        Troubleshooting
+                    </a>
+                    <a href="#contact-support" class="block px-4 py-2 rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">
+                        Contact Support
+                    </a>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="lg:col-span-2 space-y-8">
+            <!-- Getting Started -->
+            <section id="getting-started" class="bg-gray-800 rounded-lg shadow-lg p-6">
+                <h2 class="text-xl font-semibold text-white mb-4">Getting Started</h2>
+                <div class="space-y-4">
+                    <div class="border-b border-gray-700 pb-4">
+                        <h3 class="text-lg font-medium text-blue-400 mb-2">What is Sapiens Tutor?</h3>
+                        <p class="text-gray-300">Sapiens Tutor is an AI-powered learning platform that provides personalized tutoring across various subjects. Our system adapts to your learning style and academic level to deliver the most effective educational experience.</p>
+                    </div>
+                    <div class="border-b border-gray-700 pb-4">
+                        <h3 class="text-lg font-medium text-blue-400 mb-2">How do I get started?</h3>
+                        <ol class="list-decimal list-inside text-gray-300 space-y-2">
+                            <li>Create an account or sign in</li>
+                            <li>Select your grade level and curriculum</li>
+                            <li>Choose a subject to study</li>
+                            <li>Start asking questions and learning!</li>
+                        </ol>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Using the Tutor -->
+            <section id="using-tutor" class="bg-gray-800 rounded-lg shadow-lg p-6">
+                <h2 class="text-xl font-semibold text-white mb-4">Using the Tutor</h2>
+                <div class="space-y-4">
+                    <div class="border-b border-gray-700 pb-4">
+                        <h3 class="text-lg font-medium text-blue-400 mb-2">How do I ask questions?</h3>
+                        <p class="text-gray-300">Simply select a subject, choose a topic, and type your question in the chat box. Our AI tutor will provide detailed explanations, step-by-step solutions, and additional examples to help you understand the concept.</p>
+                    </div>
+                    <div class="border-b border-gray-700 pb-4">
+                        <h3 class="text-lg font-medium text-blue-400 mb-2">What subjects are available?</h3>
+                        <ul class="list-disc list-inside text-gray-300 space-y-2">
+                            <li>Mathematics (Algebra, Geometry, Calculus, etc.)</li>
+                            <li>Physics (Mechanics, Thermodynamics, etc.)</li>
+                            <li>Chemistry (Organic, Inorganic, etc.)</li>
+                            <li>Computer Science (Programming, Data Structures, etc.)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Account Settings -->
+            <section id="account-settings" class="bg-gray-800 rounded-lg shadow-lg p-6">
+                <h2 class="text-xl font-semibold text-white mb-4">Account Settings</h2>
+                <div class="space-y-4">
+                    <div class="border-b border-gray-700 pb-4">
+                        <h3 class="text-lg font-medium text-blue-400 mb-2">How do I change my grade level?</h3>
+                        <p class="text-gray-300">Go to your profile menu, select "Grade Level," and choose your current academic level. This helps us provide content that matches your educational needs.</p>
+                    </div>
+                    <div class="border-b border-gray-700 pb-4">
+                        <h3 class="text-lg font-medium text-blue-400 mb-2">How do I update my curriculum?</h3>
+                        <p class="text-gray-300">Access the profile menu, click on "Curriculum," and select from various options including General, IB, AP, Cambridge, and more.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Troubleshooting -->
+            <section id="troubleshooting" class="bg-gray-800 rounded-lg shadow-lg p-6">
+                <h2 class="text-xl font-semibold text-white mb-4">Troubleshooting</h2>
+                <div class="space-y-4">
+                    <div class="border-b border-gray-700 pb-4">
+                        <h3 class="text-lg font-medium text-blue-400 mb-2">Common Issues</h3>
+                        <ul class="list-disc list-inside text-gray-300 space-y-2">
+                            <li>Slow response times: Refresh the page or check your internet connection</li>
+                            <li>Session errors: Try logging out and back in</li>
+                            <li>Display issues: Clear your browser cache and cookies</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Support -->
+            <section id="contact-support" class="bg-gray-800 rounded-lg shadow-lg p-6">
+                <h2 class="text-xl font-semibold text-white mb-4">Contact Support</h2>
+                <div class="space-y-4">
+                    <p class="text-gray-300">Need additional help? Our support team is here for you.</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <a href="{{ url_for('feedback') }}" class="flex items-center justify-center px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                            <i class="fas fa-comment mr-2"></i>
+                            Send Feedback
+                        </a>
+                        <a href="{{ url_for('contact') }}" class="flex items-center justify-center px-4 py-3 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors">
+                            <i class="fas fa-envelope mr-2"></i>
+                            Contact Us
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+{% endblock %} 

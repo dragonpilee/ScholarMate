@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Login - AI Tutor{% endblock %}
+
+{% block content %}
+<div class="max-w-md mx-auto">
+    <h1 class="text-3xl font-bold mb-8 text-gray-800 dark:text-white text-center">Login</h1>
+    
+    <form method="POST" class="bg-white dark:bg-gray-800 shadow-lg rounded-lg p-6 mb-8">
+        <div class="mb-6">
+            <label for="username" class="block text-gray-700 dark:text-gray-200 font-medium mb-2">Username</label>
+            <input 
+                type="text" 
+                name="username" 
+                id="username" 
+                class="w-full px-4 py-2 border rounded-lg bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200" 
+                required
+                autofocus>
+        </div>
+
+        <div class="mb-6">
+            <label for="password" class="block text-gray-700 dark:text-gray-200 font-medium mb-2">Password</label>
+            <input 
+                type="password" 
+                name="password" 
+                id="password" 
+                class="w-full px-4 py-2 border rounded-lg bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200" 
+                required>
+        </div>
+
+        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg transition-colors font-medium mb-4">
+            Login
+        </button>
+
+        <p class="text-center text-gray-600 dark:text-gray-400">
+            Don't have an account? 
+            <a href="{{ url_for('register') }}" class="text-blue-600 dark:text-blue-400 hover:underline">Register here</a>
+        </p>
+    </form>
+</div>
+{% endblock %} 

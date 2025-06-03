@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}{{ subject|title }} - AI Tutor{% endblock %}
+
+{% block content %}
+<div class="chat-container">
+    <div class="flex justify-between items-center mb-6">
+        <div>
+            <h1 class="text-2xl font-bold">{{ subject|title }}</h1>
+            <p class="text-secondary">{{ current_user.curriculum }} - Grade {{ current_user.grade_level }}</p>
+        </div>
+        <select id="topicSelect" class="form-input w-64" onchange="setTopic(this.value)">
+            <option value="">Select Topic</option>
+            {% for topic in topics %}
+            <option value="{{ topic }}">{{ topic }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div id="chatMessages" class="space-y-4 h-[60vh] overflow-y-auto mb-4 p-4">
+        <!-- Messages will be inserted here -->
+    </div>
+
+    <form id="chatForm" class="flex space-x-4" onsubmit="sendMessage(event)">
+        <input type="text" 
+               id="messageInput" 
+               class="form-input flex-grow"
+               placeholder="Ask your question..."
+               required>
+        <button type="submit" class="btn btn-primary">
+            Send
+        </button>
+    </form>
+</div>
+
+<script>
+let currentTopic = new URLSearchParams(window.location.search).get('topic') || '';
+
+function setTopic(topic) {
+    currentTopic = topic;
+    const url = new URL(window.location);
+    url.searchParams.set('topic', topic);
+    window.history.pushState({}, '', url);
+}
+
+function appendMessage(content, isUser) {
+    const messagesDiv = document.getElementById('chatMessages');
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `message ${isUser ? 'user' : 'ai'}`;
+    
+    // Convert markdown to HTML if it's an AI response
+    if (!isUser) {
+        // You might want to add a markdown parser library here
+        content = content.replace(/\n/g, '<br>');
+    }
+    
+    messageDiv.innerHTML = content;
+    messagesDiv.appendChild(messageDiv);
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+}
+
+async function sendMessage(event) {
+    event.preventDefault();
+    const input = document.getElementById('messageInput');
+    const message = input.value.trim();
+    if (!message) return;
+
+    // Display user message
+    appendMessage(message, true);
+    input.value = '';
+
+    try {
+        const response = await fetch(`/chat/{{ subject }}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                message: message,
+                topic: currentTopic
+            })
+        });
+
+        const data = await response.json();
+        if (data.error) {
+            appendMessage(`Error: ${data.error}`, false);
+        } else {
+            appendMessage(data.response, false);
+        }
+    } catch (error) {
+        appendMessage('Sorry, there was an error processing your request.', false);
+    }
+}
+
+// Set initial topic in select if present
+if (currentTopic) {
+    document.getElementById('topicSelect').value = currentTopic;
+}
+</script>
+{% endblock %} 

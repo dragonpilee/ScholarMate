@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+
+{% block title %}Contact Us - ScholarMate{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h1 class="text-3xl font-bold mb-8 text-white">Contact Us</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Contact Information -->
+        <div class="md:col-span-1 space-y-8">
+            <!-- Quick Contact -->
+            <div class="bg-gray-800 rounded-lg shadow-lg p-6">
+                <h2 class="text-xl font-semibold text-white mb-4">Quick Contact</h2>
+                <div class="space-y-4">
+                    <div class="flex items-start space-x-3">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-envelope text-blue-400"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-medium text-gray-300">Email</h3>
+                            <p class="text-blue-400">
+                                <a href="mailto:support@sapienstutor.com" class="hover:text-blue-300">
+                                    support@sapienstutor.com
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-clock text-blue-400"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-medium text-gray-300">Support Hours</h3>
+                            <p class="text-gray-400">24/7 AI Support</p>
+                            <p class="text-gray-400">Human Support: Mon-Fri, 9AM-6PM EST</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Help Resources -->
+            <div class="bg-gray-800 rounded-lg shadow-lg p-6">
+                <h2 class="text-xl font-semibold text-white mb-4">Help Resources</h2>
+                <nav class="space-y-2">
+                    <a href="{{ url_for('help_center') }}" class="flex items-center space-x-2 text-gray-300 hover:text-white">
+                        <i class="fas fa-question-circle text-blue-400"></i>
+                        <span>Help Center</span>
+                    </a>
+                    <a href="{{ url_for('feedback') }}" class="flex items-center space-x-2 text-gray-300 hover:text-white">
+                        <i class="fas fa-comment text-blue-400"></i>
+                        <span>Send Feedback</span>
+                    </a>
+                    <a href="{{ url_for('terms') }}" class="flex items-center space-x-2 text-gray-300 hover:text-white">
+                        <i class="fas fa-file-alt text-blue-400"></i>
+                        <span>Terms of Service</span>
+                    </a>
+                    <a href="{{ url_for('privacy') }}" class="flex items-center space-x-2 text-gray-300 hover:text-white">
+                        <i class="fas fa-shield-alt text-blue-400"></i>
+                        <span>Privacy Policy</span>
+                    </a>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="md:col-span-2">
+            <div class="bg-gray-800 rounded-lg shadow-lg p-6">
+                <h2 class="text-xl font-semibold text-white mb-6">Send us a Message</h2>
+                <form method="POST" action="{{ url_for('contact') }}" class="space-y-6">
+                    <!-- Name -->
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Your Name</label>
+                        <input type="text" id="name" name="name" required {% if current_user.is_authenticated %}value="{{ current_user.username }}"{% endif %} class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+
+                    <!-- Email -->
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Email Address</label>
+                        <input type="email" id="email" name="email" required {% if current_user.is_authenticated %}value="{{ current_user.email }}"{% endif %} class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+
+                    <!-- Subject -->
+                    <div>
+                        <label for="subject" class="block text-sm font-medium text-gray-300 mb-2">Subject</label>
+                        <select id="subject" name="subject" required class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="">Select a subject</option>
+                            <option value="general">General Inquiry</option>
+                            <option value="technical">Technical Support</option>
+                            <option value="billing">Billing Question</option>
+                            <option value="feature">Feature Request</option>
+                            <option value="bug">Report a Bug</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <!-- Message -->
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-gray-300 mb-2">Message</label>
+                        <textarea id="message" name="message" rows="6" required placeholder="How can we help you?" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                    </div>
+
+                    <!-- Priority -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">Priority Level</label>
+                        <div class="grid grid-cols-3 gap-4">
+                            <div class="relative">
+                                <input type="radio" name="priority" value="low" id="priority-low" class="hidden peer" required>
+                                <label for="priority-low" class="block text-center p-2 bg-gray-700 rounded-lg cursor-pointer transition-colors peer-checked:bg-green-900 peer-checked:ring-2 peer-checked:ring-green-400">
+                                    <i class="fas fa-arrow-down text-green-400 mb-1"></i>
+                                    <span class="block text-sm text-white">Low</span>
+                                </label>
+                            </div>
+                            <div class="relative">
+                                <input type="radio" name="priority" value="medium" id="priority-medium" class="hidden peer">
+                                <label for="priority-medium" class="block text-center p-2 bg-gray-700 rounded-lg cursor-pointer transition-colors peer-checked:bg-yellow-900 peer-checked:ring-2 peer-checked:ring-yellow-400">
+                                    <i class="fas fa-minus text-yellow-400 mb-1"></i>
+                                    <span class="block text-sm text-white">Medium</span>
+                                </label>
+                            </div>
+                            <div class="relative">
+                                <input type="radio" name="priority" value="high" id="priority-high" class="hidden peer">
+                                <label for="priority-high" class="block text-center p-2 bg-gray-700 rounded-lg cursor-pointer transition-colors peer-checked:bg-red-900 peer-checked:ring-2 peer-checked:ring-red-400">
+                                    <i class="fas fa-arrow-up text-red-400 mb-1"></i>
+                                    <span class="block text-sm text-white">High</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="flex justify-end">
+                        <button type="submit" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                            <i class="fas fa-paper-plane mr-2"></i>
+                            Send Message
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

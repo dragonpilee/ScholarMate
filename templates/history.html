@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+
+{% block title %}Session History - Sapiens Tutor{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h1 class="text-3xl font-bold mb-8 text-white">Session History</h1>
+
+    <!-- Session List -->
+    <div class="bg-gray-800 rounded-lg shadow-lg overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="w-full">
+                <thead>
+                    <tr class="bg-gray-700">
+                        <th class="px-6 py-4 text-left text-sm font-medium text-gray-300">Date</th>
+                        <th class="px-6 py-4 text-left text-sm font-medium text-gray-300">Subject</th>
+                        <th class="px-6 py-4 text-left text-sm font-medium text-gray-300">Topic</th>
+                        <th class="px-6 py-4 text-left text-sm font-medium text-gray-300">Question</th>
+                        <th class="px-6 py-4 text-left text-sm font-medium text-gray-300">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-700">
+                    {% for session in sessions.items %}
+                    <tr class="hover:bg-gray-700 transition-colors">
+                        <td class="px-6 py-4 text-sm text-gray-300">
+                            {{ session.timestamp.strftime('%Y-%m-%d %H:%M') }}
+                        </td>
+                        <td class="px-6 py-4 text-sm text-gray-300">
+                            {{ session.subject|title }}
+                        </td>
+                        <td class="px-6 py-4 text-sm text-gray-300">
+                            {{ session.topic }}
+                        </td>
+                        <td class="px-6 py-4 text-sm text-gray-300">
+                            <div class="truncate max-w-xs">{{ session.question }}</div>
+                        </td>
+                        <td class="px-6 py-4 text-sm text-gray-300">
+                            <button onclick="toggleResponse({{ session.id }})" class="text-blue-400 hover:text-blue-300">
+                                <i class="fas fa-eye mr-1"></i> View
+                            </button>
+                        </td>
+                    </tr>
+                    <!-- Response Row (Hidden by default) -->
+                    <tr id="response-{{ session.id }}" class="hidden bg-gray-900">
+                        <td colspan="5" class="px-6 py-4">
+                            <div class="prose prose-invert max-w-none">
+                                {{ session.response|safe }}
+                            </div>
+                            <div class="mt-4 flex justify-end space-x-4">
+                                <button onclick="copyResponse({{ session.id }})" class="text-blue-400 hover:text-blue-300 text-sm">
+                                    <i class="fas fa-copy mr-1"></i> Copy
+                                </button>
+                                <button onclick="printResponse({{ session.id }})" class="text-blue-400 hover:text-blue-300 text-sm">
+                                    <i class="fas fa-print mr-1"></i> Print
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        {% if sessions.pages > 1 %}
+        <div class="px-6 py-4 bg-gray-700 flex items-center justify-between">
+            <div class="flex-1 flex justify-between sm:hidden">
+                {% if sessions.has_prev %}
+                <a href="{{ url_for('history', page=sessions.prev_num) }}" class="text-gray-300 hover:text-white">Previous</a>
+                {% endif %}
+                {% if sessions.has_next %}
+                <a href="{{ url_for('history', page=sessions.next_num) }}" class="text-gray-300 hover:text-white">Next</a>
+                {% endif %}
+            </div>
+            <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+                <div>
+                    <p class="text-sm text-gray-400">
+                        Showing page {{ sessions.page }} of {{ sessions.pages }}
+                    </p>
+                </div>
+                <div>
+                    <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                        {% if sessions.has_prev %}
+                        <a href="{{ url_for('history', page=sessions.prev_num) }}" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-600 bg-gray-800 text-sm font-medium text-gray-300 hover:bg-gray-700">
+                            <i class="fas fa-chevron-left"></i>
+                        </a>
+                        {% endif %}
+                        
+                        {% for page in range(1, sessions.pages + 1) %}
+                        <a href="{{ url_for('history', page=page) }}" class="relative inline-flex items-center px-4 py-2 border border-gray-600 {% if page == sessions.page %}bg-gray-900 text-blue-400{% else %}bg-gray-800 text-gray-300 hover:bg-gray-700{% endif %} text-sm font-medium">
+                            {{ page }}
+                        </a>
+                        {% endfor %}
+                        
+                        {% if sessions.has_next %}
+                        <a href="{{ url_for('history', page=sessions.next_num) }}" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-600 bg-gray-800 text-sm font-medium text-gray-300 hover:bg-gray-700">
+                            <i class="fas fa-chevron-right"></i>
+                        </a>
+                        {% endif %}
+                    </nav>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+function toggleResponse(sessionId) {
+    const responseRow = document.getElementById(`response-${sessionId}`);
+    responseRow.classList.toggle('hidden');
+}
+
+function copyResponse(sessionId) {
+    const responseDiv = document.querySelector(`#response-${sessionId} .prose`);
+    const textArea = document.createElement('textarea');
+    textArea.value = responseDiv.textContent;
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textArea);
+    
+    // Show feedback
+    const button = event.target.closest('button');
+    const originalText = button.innerHTML;
+    button.innerHTML = '<i class="fas fa-check mr-1"></i> Copied!';
+    setTimeout(() => {
+        button.innerHTML = originalText;
+    }, 2000);
+}
+
+function printResponse(sessionId) {
+    const responseDiv = document.querySelector(`#response-${sessionId} .prose`);
+    const printWindow = window.open('', '', 'height=600,width=800');
+    printWindow.document.write('<html><head><title>Print Response</title>');
+    printWindow.document.write('<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">');
+    printWindow.document.write('</head><body class="p-8">');
+    printWindow.document.write(responseDiv.innerHTML);
+    printWindow.document.write('</body></html>');
+    printWindow.document.close();
+    printWindow.print();
+}
+</script>
+{% endblock %} 

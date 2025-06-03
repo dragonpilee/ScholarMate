@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}ScholarMate{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Force dark mode styles */
+        body {
+            background-color: #111827;
+            color: #e5e7eb;
+        }
+        
+        /* Dropdown styles */
+        .dropdown-menu {
+            transform-origin: top right;
+            transition: all 0.1s ease-out;
+        }
+        
+        .dropdown-menu.hidden {
+            transform: scale(0.95);
+            opacity: 0;
+        }
+        
+        /* Animation for dropdown */
+        @keyframes dropdownAnimation {
+            0% {
+                transform: scale(0.95);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        .dropdown-menu:not(.hidden) {
+            animation: dropdownAnimation 0.1s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gray-900">
+    <nav class="bg-gray-800 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center space-x-8">
+                    <a href="{{ url_for('dashboard') if current_user.is_authenticated else url_for('home') }}" class="flex items-center space-x-2">
+                        <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                        </svg>
+                        <span class="text-xl font-bold text-white">ScholarMate</span>
+                    </a>
+                    {% if current_user.is_authenticated %}
+                    <div class="hidden md:flex space-x-4">
+                        {% for subject_key in subjects.keys() %}
+                        <a href="{{ url_for('tutor', subject=subject_key) }}" 
+                           class="text-gray-200 hover:text-blue-400 {% if subject == subject_key %}text-blue-400{% endif %}">
+                            {{ subject_key|title }}
+                        </a>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="flex items-center space-x-4">
+                    {% if current_user.is_authenticated %}
+                    <div class="relative">
+                        <button type="button" onclick="toggleProfileMenu()" class="flex items-center space-x-3 text-gray-200 hover:text-white focus:outline-none" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+                            <div class="h-8 w-8 rounded-full bg-gray-700 flex items-center justify-center">
+                                <i class="fas fa-user text-gray-300"></i>
+                            </div>
+                            <span class="hidden md:block">{{ current_user.username }}</span>
+                            <i class="fas fa-chevron-down text-sm"></i>
+                        </button>
+                        
+                        <!-- Profile dropdown -->
+                        <div id="profile-dropdown" class="hidden dropdown-menu absolute right-0 mt-2 w-64 rounded-md shadow-lg py-1 bg-gray-800 ring-1 ring-black ring-opacity-5 focus:outline-none z-50" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+                            <!-- Profile Info -->
+                            <div class="px-4 py-3 border-b border-gray-700">
+                                <p class="text-sm text-gray-400">Signed in as</p>
+                                <p class="text-sm font-medium text-white truncate">{{ current_user.email }}</p>
+                            </div>
+                            
+                            <!-- Main Options -->
+                            <div class="py-1">
+                                <a href="{{ url_for('dashboard') }}" class="flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-gray-700" role="menuitem">
+                                    <i class="fas fa-home mr-3 w-4"></i>
+                                    Dashboard
+                                </a>
+                                <a href="{{ url_for('profile') }}" class="flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-gray-700" role="menuitem">
+                                    <i class="fas fa-user-circle mr-3 w-4"></i>
+                                    Your Profile
+                                </a>
+                                <a href="{{ url_for('settings') }}" class="flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-gray-700" role="menuitem">
+                                    <i class="fas fa-cog mr-3 w-4"></i>
+                                    Settings
+                                </a>
+                            </div>
+                            
+                            <!-- Learning -->
+                            <div class="py-1 border-t border-gray-700">
+                                <a href="{{ url_for('progress') }}" class="flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-gray-700" role="menuitem">
+                                    <i class="fas fa-chart-line mr-3 w-4"></i>
+                                    Learning Progress
+                                </a>
+                                <a href="{{ url_for('history') }}" class="flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-gray-700" role="menuitem">
+                                    <i class="fas fa-history mr-3 w-4"></i>
+                                    Session History
+                                </a>
+                                <a href="{{ url_for('curriculum') }}" class="flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-gray-700" role="menuitem">
+                                    <i class="fas fa-book mr-3 w-4"></i>
+                                    Curriculum: {{ current_user.curriculum }}
+                                </a>
+                                <a href="{{ url_for('grade_level') }}" class="flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-gray-700" role="menuitem">
+                                    <i class="fas fa-graduation-cap mr-3 w-4"></i>
+                                    Grade Level: {{ current_user.grade_level }}
+                                </a>
+                            </div>
+                            
+                            <!-- Help & Support -->
+                            <div class="py-1 border-t border-gray-700">
+                                <a href="{{ url_for('help_center') }}" class="flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-gray-700" role="menuitem">
+                                    <i class="fas fa-question-circle mr-3 w-4"></i>
+                                    Help & Support
+                                </a>
+                                <a href="{{ url_for('feedback') }}" class="flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-gray-700" role="menuitem">
+                                    <i class="fas fa-comment mr-3 w-4"></i>
+                                    Send Feedback
+                                </a>
+                            </div>
+                            
+                            <!-- Logout -->
+                            <div class="py-1 border-t border-gray-700">
+                                <a href="{{ url_for('logout') }}" class="flex items-center px-4 py-2 text-sm text-red-400 hover:bg-gray-700" role="menuitem">
+                                    <i class="fas fa-sign-out-alt mr-3 w-4"></i>
+                                    Sign out
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="flex items-center">
+                        <a href="{{ url_for('login') }}" class="text-gray-200 hover:text-white px-3 py-2">Log in</a>
+                        <a href="{{ url_for('register') }}" class="ml-4 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors">Sign up</a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4 py-8">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="mb-4 p-4 rounded-lg {% if category == 'error' %}bg-red-900 text-red-200{% else %}bg-green-900 text-green-200{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="bg-gray-800 shadow-lg mt-8">
+        <div class="max-w-7xl mx-auto px-4 py-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="text-center md:text-left mb-4 md:mb-0">
+                    <p class="text-gray-400">© 2024 Sapiens Tutor. All rights reserved.</p>
+                    <p class="text-sm text-gray-500">Your personal AI learning companion</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="{{ url_for('about') }}" class="text-gray-400 hover:text-blue-400">About</a>
+                    <a href="{{ url_for('privacy') }}" class="text-gray-400 hover:text-blue-400">Privacy</a>
+                    <a href="{{ url_for('terms') }}" class="text-gray-400 hover:text-blue-400">Terms</a>
+                    <a href="{{ url_for('contact') }}" class="text-gray-400 hover:text-blue-400">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    function toggleProfileMenu() {
+        const dropdown = document.getElementById('profile-dropdown');
+        const button = document.getElementById('user-menu-button');
+        const isExpanded = button.getAttribute('aria-expanded') === 'true';
+        
+        button.setAttribute('aria-expanded', !isExpanded);
+        dropdown.classList.toggle('hidden');
+        
+        // Close dropdown when clicking outside
+        if (!isExpanded) {
+            document.addEventListener('click', function closeDropdown(event) {
+                if (!dropdown.contains(event.target) && !button.contains(event.target)) {
+                    dropdown.classList.add('hidden');
+                    button.setAttribute('aria-expanded', 'false');
+                    document.removeEventListener('click', closeDropdown);
+                }
+            });
+        }
+    }
+
+    // Close dropdown when pressing escape key
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            const dropdown = document.getElementById('profile-dropdown');
+            const button = document.getElementById('user-menu-button');
+            dropdown.classList.add('hidden');
+            button.setAttribute('aria-expanded', 'false');
+        }
+    });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+
+{% block title %}About - ScholarMate{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h1 class="text-3xl font-bold mb-8 text-white">About ScholarMate</h1>
+
+    <!-- Mission Statement -->
+    <div class="bg-gray-800 rounded-lg shadow-lg p-8 mb-8">
+        <h2 class="text-2xl font-semibold text-white mb-4">Our Mission</h2>
+        <p class="text-gray-300 text-lg leading-relaxed">
+            ScholarMate is dedicated to democratizing education through advanced AI technology. 
+            We believe that every student deserves access to high-quality, personalized tutoring 
+            that adapts to their unique learning style and pace.
+        </p>
+    </div>
+
+    <!-- Features Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+        <!-- AI Technology -->
+        <div class="bg-gray-800 rounded-lg shadow-lg p-6">
+            <div class="flex items-center justify-center w-12 h-12 rounded-lg bg-blue-900 mb-4">
+                <i class="fas fa-robot text-blue-400 text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-white mb-3">Advanced AI</h3>
+            <p class="text-gray-300">
+                Powered by state-of-the-art language models to provide accurate, 
+                contextual, and helpful responses to your academic questions.
+            </p>
+        </div>
+
+        <!-- Personalization -->
+        <div class="bg-gray-800 rounded-lg shadow-lg p-6">
+            <div class="flex items-center justify-center w-12 h-12 rounded-lg bg-green-900 mb-4">
+                <i class="fas fa-user-graduate text-green-400 text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-white mb-3">Personalized Learning</h3>
+            <p class="text-gray-300">
+                Adapts to your grade level, curriculum, and learning style to 
+                provide customized educational support.
+            </p>
+        </div>
+
+        <!-- Comprehensive -->
+        <div class="bg-gray-800 rounded-lg shadow-lg p-6">
+            <div class="flex items-center justify-center w-12 h-12 rounded-lg bg-purple-900 mb-4">
+                <i class="fas fa-books text-purple-400 text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-white mb-3">Comprehensive Coverage</h3>
+            <p class="text-gray-300">
+                Covers a wide range of subjects from mathematics and sciences to 
+                computer science and beyond.
+            </p>
+        </div>
+    </div>
+
+    <!-- How It Works -->
+    <div class="bg-gray-800 rounded-lg shadow-lg p-8 mb-12">
+        <h2 class="text-2xl font-semibold text-white mb-6">How It Works</h2>
+        <div class="space-y-6">
+            <div class="flex items-start space-x-4">
+                <div class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-900 flex items-center justify-center">
+                    <span class="text-blue-400 font-semibold">1</span>
+                </div>
+                <div>
+                    <h3 class="text-lg font-medium text-white mb-2">Sign Up & Profile Setup</h3>
+                    <p class="text-gray-300">Create your account and set your academic preferences, including grade level and curriculum.</p>
+                </div>
+            </div>
+            <div class="flex items-start space-x-4">
+                <div class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-900 flex items-center justify-center">
+                    <span class="text-blue-400 font-semibold">2</span>
+                </div>
+                <div>
+                    <h3 class="text-lg font-medium text-white mb-2">Choose Your Subject</h3>
+                    <p class="text-gray-300">Select from our wide range of academic subjects and specific topics.</p>
+                </div>
+            </div>
+            <div class="flex items-start space-x-4">
+                <div class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-900 flex items-center justify-center">
+                    <span class="text-blue-400 font-semibold">3</span>
+                </div>
+                <div>
+                    <h3 class="text-lg font-medium text-white mb-2">Ask Questions</h3>
+                    <p class="text-gray-300">Get instant, detailed explanations and step-by-step solutions to your questions.</p>
+                </div>
+            </div>
+            <div class="flex items-start space-x-4">
+                <div class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-900 flex items-center justify-center">
+                    <span class="text-blue-400 font-semibold">4</span>
+                </div>
+                <div>
+                    <h3 class="text-lg font-medium text-white mb-2">Track Progress</h3>
+                    <p class="text-gray-300">Monitor your learning journey and review past sessions to reinforce understanding.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Team -->
+    <div class="bg-gray-800 rounded-lg shadow-lg p-8">
+        <h2 class="text-2xl font-semibold text-white mb-6">Our Team</h2>
+        <p class="text-gray-300 text-lg leading-relaxed mb-8">
+            ScholarMate is developed by a passionate team of educators, AI researchers, 
+            and software engineers committed to transforming education through technology.
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="text-center">
+                <div class="w-24 h-24 rounded-full bg-gray-700 mx-auto mb-4 flex items-center justify-center">
+                    <i class="fas fa-user-tie text-4xl text-gray-400"></i>
+                </div>
+                <h3 class="text-lg font-medium text-white">Education Experts</h3>
+                <p class="text-gray-400">Curriculum Design</p>
+            </div>
+            <div class="text-center">
+                <div class="w-24 h-24 rounded-full bg-gray-700 mx-auto mb-4 flex items-center justify-center">
+                    <i class="fas fa-brain text-4xl text-gray-400"></i>
+                </div>
+                <h3 class="text-lg font-medium text-white">AI Researchers</h3>
+                <p class="text-gray-400">Model Development</p>
+            </div>
+            <div class="text-center">
+                <div class="w-24 h-24 rounded-full bg-gray-700 mx-auto mb-4 flex items-center justify-center">
+                    <i class="fas fa-laptop-code text-4xl text-gray-400"></i>
+                </div>
+                <h3 class="text-lg font-medium text-white">Engineers</h3>
+                <p class="text-gray-400">Platform Development</p>
+            </div>
+            <div class="text-center">
+                <div class="w-24 h-24 rounded-full bg-gray-700 mx-auto mb-4 flex items-center justify-center">
+                    <i class="fas fa-users text-4xl text-gray-400"></i>
+                </div>
+                <h3 class="text-lg font-medium text-white">Support Team</h3>
+                <p class="text-gray-400">User Experience</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

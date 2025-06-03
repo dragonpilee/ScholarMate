@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+
+{% block title %}Privacy Policy - ScholarMate{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h1 class="text-3xl font-bold mb-8 text-white">Privacy Policy</h1>
+
+    <div class="space-y-8">
+        <!-- Introduction -->
+        <div class="bg-gray-800 rounded-lg shadow-lg p-6">
+            <h2 class="text-xl font-semibold text-white mb-4">Introduction</h2>
+            <p class="text-gray-300">
+                At Sapiens Tutor, we take your privacy seriously. This Privacy Policy explains how we collect, 
+                use, disclose, and safeguard your information when you use our service. Please read this privacy 
+                policy carefully. If you do not agree with the terms of this privacy policy, please do not access 
+                the application.
+            </p>
+        </div>
+
+        <!-- Information We Collect -->
+        <div class="bg-gray-800 rounded-lg shadow-lg p-6">
+            <h2 class="text-xl font-semibold text-white mb-4">Information We Collect</h2>
+            <div class="space-y-4">
+                <div>
+                    <h3 class="text-lg font-medium text-blue-400 mb-2">Personal Information</h3>
+                    <ul class="list-disc list-inside text-gray-300 space-y-2">
+                        <li>Name and email address</li>
+                        <li>Academic information (grade level, curriculum)</li>
+                        <li>Learning history and progress data</li>
+                        <li>Communication preferences</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-medium text-blue-400 mb-2">Usage Data</h3>
+                    <ul class="list-disc list-inside text-gray-300 space-y-2">
+                        <li>Browser type and version</li>
+                        <li>Time spent on platform</li>
+                        <li>Pages visited</li>
+                        <li>Learning interactions</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- How We Use Your Information -->
+        <div class="bg-gray-800 rounded-lg shadow-lg p-6">
+            <h2 class="text-xl font-semibold text-white mb-4">How We Use Your Information</h2>
+            <div class="space-y-4">
+                <div class="flex items-start space-x-4">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-user-shield text-blue-400 text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-medium text-white mb-2">Personalization</h3>
+                        <p class="text-gray-300">To provide personalized learning experiences and content recommendations.</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-4">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-chart-line text-blue-400 text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-medium text-white mb-2">Analytics</h3>
+                        <p class="text-gray-300">To analyze usage patterns and improve our services.</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-4">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-envelope text-blue-400 text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-medium text-white mb-2">Communication</h3>
+                        <p class="text-gray-300">To send important updates and respond to your inquiries.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data Security -->
+        <div class="bg-gray-800 rounded-lg shadow-lg p-6">
+            <h2 class="text-xl font-semibold text-white mb-4">Data Security</h2>
+            <p class="text-gray-300 mb-4">
+                We implement appropriate technical and organizational security measures to protect 
+                your personal information from unauthorized access, disclosure, or destruction.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-gray-700 rounded-lg p-4">
+                    <h3 class="text-lg font-medium text-white mb-2">Security Measures</h3>
+                    <ul class="list-disc list-inside text-gray-300 space-y-1">
+                        <li>Encryption in transit and at rest</li>
+                        <li>Regular security assessments</li>
+                        <li>Access controls and authentication</li>
+                        <li>Secure data backups</li>
+                    </ul>
+                </div>
+                <div class="bg-gray-700 rounded-lg p-4">
+                    <h3 class="text-lg font-medium text-white mb-2">Data Protection</h3>
+                    <ul class="list-disc list-inside text-gray-300 space-y-1">
+                        <li>Regular privacy audits</li>
+                        <li>Employee training</li>
+                        <li>Incident response plan</li>
+                        <li>Data minimization</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Your Rights -->
+        <div class="bg-gray-800 rounded-lg shadow-lg p-6">
+            <h2 class="text-xl font-semibold text-white mb-4">Your Rights</h2>
+            <div class="space-y-4">
+                <p class="text-gray-300">You have the right to:</p>
+                <ul class="list-disc list-inside text-gray-300 space-y-2">
+                    <li>Access your personal information</li>
+                    <li>Correct inaccurate data</li>
+                    <li>Request deletion of your data</li>
+                    <li>Object to data processing</li>
+                    <li>Data portability</li>
+                    <li>Withdraw consent</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Contact Us -->
+        <div class="bg-gray-800 rounded-lg shadow-lg p-6">
+            <h2 class="text-xl font-semibold text-white mb-4">Contact Us</h2>
+            <p class="text-gray-300 mb-4">
+                If you have any questions about this Privacy Policy, please contact us:
+            </p>
+            <div class="flex space-x-4">
+                <a href="{{ url_for('contact') }}" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                    <i class="fas fa-envelope mr-2"></i>
+                    Contact Form
+                </a>
+                <a href="mailto:privacy@sapienstutor.com" class="inline-flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors">
+                    <i class="fas fa-at mr-2"></i>
+                    Email Us
+                </a>
+            </div>
+        </div>
+
+        <!-- Last Updated -->
+        <div class="text-center text-gray-400 text-sm">
+            Last updated: March 2024
+        </div>
+    </div>
+</div>
+{% endblock %} 

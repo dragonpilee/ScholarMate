@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}Learning Progress - Sapiens Tutor{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h1 class="text-3xl font-bold mb-8 text-white">Learning Progress</h1>
+
+    <!-- Overview Stats -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        <div class="bg-gray-800 rounded-lg p-6 shadow-lg">
+            <h3 class="text-lg font-medium text-gray-300 mb-2">Total Sessions</h3>
+            <p class="text-3xl font-bold text-blue-400">{{ total_sessions }}</p>
+        </div>
+        <div class="bg-gray-800 rounded-lg p-6 shadow-lg">
+            <h3 class="text-lg font-medium text-gray-300 mb-2">Subjects Covered</h3>
+            <p class="text-3xl font-bold text-blue-400">{{ subject_stats|length }}</p>
+        </div>
+        <div class="bg-gray-800 rounded-lg p-6 shadow-lg">
+            <h3 class="text-lg font-medium text-gray-300 mb-2">Current Grade</h3>
+            <p class="text-3xl font-bold text-blue-400">{{ current_user.grade_level }}</p>
+        </div>
+        <div class="bg-gray-800 rounded-lg p-6 shadow-lg">
+            <h3 class="text-lg font-medium text-gray-300 mb-2">Curriculum</h3>
+            <p class="text-3xl font-bold text-blue-400">{{ current_user.curriculum }}</p>
+        </div>
+    </div>
+
+    <!-- Subject Progress -->
+    <div class="bg-gray-800 rounded-lg shadow-lg p-6 mb-8">
+        <h2 class="text-xl font-bold text-white mb-6">Subject Progress</h2>
+        <div class="space-y-6">
+            {% for subject, count in subject_stats %}
+            <div>
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-gray-300">{{ subject|title }}</span>
+                    <span class="text-gray-400">{{ count }} sessions</span>
+                </div>
+                <div class="w-full bg-gray-700 rounded-full h-2.5">
+                    <div class="bg-blue-600 h-2.5 rounded-full" style="width: {{ (count / total_sessions * 100) if total_sessions > 0 else 0 }}%"></div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="bg-gray-800 rounded-lg shadow-lg p-6">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-xl font-bold text-white">Recent Activity</h2>
+            <a href="{{ url_for('history') }}" class="text-blue-400 hover:text-blue-300 text-sm">View all activity</a>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="w-full">
+                <thead>
+                    <tr class="text-left text-gray-400 text-sm">
+                        <th class="pb-4">Date</th>
+                        <th class="pb-4">Subject</th>
+                        <th class="pb-4">Topic</th>
+                        <th class="pb-4">Question</th>
+                    </tr>
+                </thead>
+                <tbody class="text-gray-300">
+                    {% for session in sessions[:5] %}
+                    <tr class="border-t border-gray-700">
+                        <td class="py-4">{{ session.timestamp.strftime('%Y-%m-%d %H:%M') }}</td>
+                        <td class="py-4">{{ session.subject|title }}</td>
+                        <td class="py-4">{{ session.topic }}</td>
+                        <td class="py-4 truncate max-w-xs">{{ session.question }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %} 

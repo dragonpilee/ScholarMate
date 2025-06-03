@@ -25,7 +25,7 @@
 
 ## ✨ Features
 
-- **Advanced AI Model:** Utilizes DeepSeek-R1 with optimized parameters (temperature=0.5, max_tokens=1536, top_p=0.9)
+- **Advanced AI Model:** Utilizes DeepSeek-R1 with optimized parameters 
 - **Multi-Subject Support:** Mathematics, Physics, Chemistry, Computer Science
 - **Curriculum Alignment:** Supports General, IB, AP, Cambridge
 - **Grade Level Adaptation:** From Pre-School to Post-Doctoral

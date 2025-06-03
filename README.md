@@ -4,7 +4,6 @@
 ![Python](https://img.shields.io/badge/Language-Python-blue)
 ![TailwindCSS](https://img.shields.io/badge/Styling-TailwindCSS-38bdf8)
 ![DeepSeek-R1-Distill-LLaMA-70B](https://img.shields.io/badge/AI-DeepSeek--R1--Distill--LLaMA--70B-yellow)
-![Groq API](https://img.shields.io/badge/AI%20API-Groq%20API-orange)
 ![MIT License](https://img.shields.io/badge/License-MIT-green)
 
 > If you find this project helpful, please consider ⭐ [starring the repository](https://github.com/yourusername/scholarmate)!
@@ -36,7 +35,7 @@
 
 - **Backend:** Flask 3.0.2, SQLAlchemy 2.0.41 (SQLite), Flask-Login, Flask-Migrate, WTForms, Bcrypt, Python-dotenv
 - **Frontend:** Jinja2, TailwindCSS, FontAwesome, Vanilla JS (ES6+), Responsive Design, Dark Mode
-- **AI Integration:** DeepSeek-R1-Distill-LLaMA-70B via Groq API (v0.26.0), Markdown with LaTeX support, custom parameter tuning
+- **AI Integration:** DeepSeek-R1-Distill-LLaMA-70B, Markdown with LaTeX support, custom parameter tuning
 - **Development & Deployment:** Gunicorn, Git, Python 3.8+, PEP 8, Markdown docs, venv
 
 ---
@@ -67,7 +66,6 @@
     Create a `.env` file in the root directory with:
     ```
     SECRET_KEY=your_secret_key_here
-    GROQ_API_KEY=your_groq_api_key_here
     DATABASE_URL=sqlite:///scholarmate.db
     ```
 
@@ -154,7 +152,6 @@ Support Email: support@scholarmate.com
 
 ## 🙏 Acknowledgments
 
-- Groq API for AI model access
 - TailwindCSS for styling
 - FontAwesome for icons
 - All contributors and users of ScholarMate

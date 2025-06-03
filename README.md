@@ -16,10 +16,10 @@
 
 ## 📸 Screenshots
 
-![Screenshot 1](./2025-06-04%20032902.png)
-![Screenshot 2](./Screenshot%202025-06-04%20032938.png)
-![Screenshot 3](./Screenshot%202025-06-04%20033008.png)
-![Screenshot 4](./Screenshot%202025-06-04%20033025.png)
+<img src="./Screenshot 2025-06-04 032902.png" alt="Screenshot 1" width="400"/>
+<img src="./Screenshot 2025-06-04 032938.png" alt="Screenshot 2" width="400"/>
+<img src="./Screenshot 2025-06-04 033008.png" alt="Screenshot 3" width="400"/>
+<img src="./Screenshot 2025-06-04 033025.png" alt="Screenshot 4" width="400"/>
 
 ---
 

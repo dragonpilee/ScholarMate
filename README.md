@@ -3,20 +3,29 @@
 ![Flask](https://img.shields.io/badge/Backend-Flask-000000?logo=flask)
 ![Python](https://img.shields.io/badge/Language-Python-blue)
 ![TailwindCSS](https://img.shields.io/badge/Styling-TailwindCSS-38bdf8)
-![DeepSeek-R1-Distill-LLaMA-70B](https://img.shields.io/badge/AI-DeepSeek--R1--Distill--LLaMA--70B-yellow)
+![DeepSeek-R1](https://img.shields.io/badge/AI-DeepSeek--R1-yellow)
 ![MIT License](https://img.shields.io/badge/License-MIT-green)
 
 > If you find this project helpful, please consider ⭐ [starring the repository](https://github.com/yourusername/scholarmate)!
 
 ---
 
-**ScholarMate** is an intelligent tutoring platform that leverages advanced AI technology to provide personalized learning experiences across various subjects and educational levels. Powered by the DeepSeek-R1-Distill-LLaMA-70B model, it delivers high-quality, contextual responses optimized for educational purposes.
+**ScholarMate** is a fully stack AI project and intelligent tutoring platform that leverages advanced AI technology to provide personalized learning experiences across various subjects and educational levels. Powered by the DeepSeek-R1 model, it delivers high-quality, contextual responses optimized for educational purposes.
+
+---
+
+## 📸 Screenshots
+
+![Screenshot 1](./2025-06-04%20032902.png)
+![Screenshot 2](./Screenshot%202025-06-04%20032938.png)
+![Screenshot 3](./Screenshot%202025-06-04%20033008.png)
+![Screenshot 4](./Screenshot%202025-06-04%20033025.png)
 
 ---
 
 ## ✨ Features
 
-- **Advanced AI Model:** Utilizes DeepSeek-R1-Distill-LLaMA-70B with optimized parameters (temperature=0.5, max_tokens=1536, top_p=0.9)
+- **Advanced AI Model:** Utilizes DeepSeek-R1 with optimized parameters (temperature=0.5, max_tokens=1536, top_p=0.9)
 - **Multi-Subject Support:** Mathematics, Physics, Chemistry, Computer Science
 - **Curriculum Alignment:** Supports General, IB, AP, Cambridge
 - **Grade Level Adaptation:** From Pre-School to Post-Doctoral
@@ -35,7 +44,7 @@
 
 - **Backend:** Flask 3.0.2, SQLAlchemy 2.0.41 (SQLite), Flask-Login, Flask-Migrate, WTForms, Bcrypt, Python-dotenv
 - **Frontend:** Jinja2, TailwindCSS, FontAwesome, Vanilla JS (ES6+), Responsive Design, Dark Mode
-- **AI Integration:** DeepSeek-R1-Distill-LLaMA-70B, Markdown with LaTeX support, custom parameter tuning
+- **AI Integration:** DeepSeek-R1, Markdown with LaTeX support, custom parameter tuning
 - **Development & Deployment:** Gunicorn, Git, Python 3.8+, PEP 8, Markdown docs, venv
 
 ---
@@ -104,7 +113,7 @@ scholarmate/
 ## 🧠 Features in Detail
 
 ### AI Tutoring
-- **Model:** DeepSeek-R1-Distill-LLaMA-70B
+- **Model:** DeepSeek-R1
 - **Parameters:**
   - Temperature: 0.5 (for consistent, focused responses)
   - Max Tokens: 1536 (optimal length for educational content)

@@ -159,10 +159,3 @@ Support Email: support@scholarmate.com
 
 ---
 
-## 🙏 Acknowledgments
-
-- TailwindCSS for styling
-- FontAwesome for icons
-- All contributors and users of ScholarMate
-
----
